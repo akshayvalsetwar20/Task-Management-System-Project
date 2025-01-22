@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Role Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+ 
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+ 
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+ 
+        .role-details {
+            margin-bottom: 30px;
+        }
+ 
+        .role-details p {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+ 
+        .role-details strong {
+            color: #4CAF50;
+        }
+ 
+        a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+        }
+ 
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Role Details</h1>
+ 
+        <div class="role-details">
+            <p><strong>ID:</strong> <span th:text="${userRole.userRoleId}"></span></p>
+            <p><strong>Role Name:</strong> <span th:text="${userRole.roleName}"></span></p>
+        </div>
+ 
+        <!-- Back to the list page -->
+        <a href="/admin/dashbaord/userrole/list">Back to All Roles</a>
+    </div>
+</body>
+</html>

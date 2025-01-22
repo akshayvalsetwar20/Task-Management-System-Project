@@ -1,0 +1,19 @@
+<!-- user-details.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>User Details</h2>
+    <p><strong>Full Name:</strong> <span th:text="${user.fullName}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+    <p><strong>Role:</strong> <span th:text="${user.role}"></span></p>
+    <p><strong>Task Count:</strong> <span th:text="${user.taskCount}"></span></p>
+    <p><strong>Task Completed:</strong> <span th:text="${user.taskCompleted ? 'Yes' : 'No'}"></span></p>
+    <a href="dashboard/users/all" class="btn btn-secondary">Back to Users</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>User Management</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container mt-5">
+		<!-- Back to Dashboard Button -->
+		<div class="mb-3">
+			<a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+		</div>
+
+		<h2>User Management</h2>
+
+		<!-- Buttons and Search Forms -->
+		<div class="d-flex justify-content-between mb-3">
+			<!-- Create User Button -->
+			<a href="/admin/dashboard/users/create" class="btn btn-primary">Create User</a>
+
+			<!-- Search by User ID Form -->
+			<form action="/admin/dashboard/users/user" method="get" class="d-flex">
+				<input type="number" name="userId" placeholder="Search by User ID" class="form-control me-2" />
+				<button type="submit" class="btn btn-secondary">Search</button>
+			</form>
+		</div>
+
+		<!-- Display message if present -->
+		<div th:if="${message}" class="alert alert-info">
+			<p th:text="${message}"></p>
+		</div>
+
+		<!-- User Table -->
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>User ID</th>
+					<th>Username</th>
+					<th>Full Name</th>
+					<th>Email</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Check and display single user if found -->
+				<tr th:if="${user != null}">
+					<td th:text="${user.userID}"></td>
+					<td th:text="${user.username}"></td>
+					<td th:text="${user.fullName}"></td>
+					<td th:text="${user.email}"></td>
+					<td>
+						<!-- Edit Button -->
+						<a th:href="@{/admin/dashboard/users/edit/{userId}(userId=${user.userID})}"
+							class="btn btn-warning btn-sm">Edit</a>
+						<!-- Delete Button -->
+						<a th:href="@{/admin/dashboard/users/delete/{userId}(userId=${user.userID})}"
+							class="btn btn-danger btn-sm"
+							onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+					</td>
+				</tr>
+
+				<!-- Display multiple users if found -->
+				<tr th:each="user : ${users}" th:if="${users != null}">
+					<td th:text="${user.userID}"></td>
+					<td th:text="${user.username}"></td>
+					<td th:text="${user.fullName}"></td>
+					<td th:text="${user.email}"></td>
+					<td>
+						<!-- Edit Button -->
+						<a th:href="@{/admin/dashboard/users/edit/{userId}(userId=${user.userID})}"
+							class="btn btn-warning btn-sm">Edit</a>
+						<!-- Delete Button -->
+						<a th:href="@{/admin/dashboard/users/delete/{userId}(userId=${user.userID})}"
+							class="btn btn-danger btn-sm"
+							onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+					</td>
+				</tr>
+
+				<!-- Fallback for no users found -->
+				<tr th:if="${user == null and (users == null or #lists.isEmpty(users))}">
+					<td colspan="5" class="text-center">No users found.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

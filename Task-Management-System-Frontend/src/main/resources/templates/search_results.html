@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .no-tasks {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results</h1>
+
+        <!-- Error Message -->
+        <div th:if="${errorMessage != null}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <!-- Task Table -->
+        <table th:if="${tasks != null && !tasks.isEmpty()}">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="task : ${tasks}">
+                    <td th:text="${task.taskName}"></td>
+                    <td th:text="${task.description}"></td>
+                    <td th:text="${task.dueDate}"></td>
+                    <td th:text="${task.priority}"></td>
+                    <td th:text="${task.status}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Message for Empty Results -->
+        <p th:if="${tasks == null || tasks.isEmpty()}" class="no-tasks">
+            No tasks found for the specified criteria.
+        </p>
+
+        <!-- Link Back to Task List -->
+        <a href="/admin/dashboard/tasks/overdue-tasks" class="button">Back to Task List</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Body Styling */
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Page Title */
+        h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Button Styling */
+        .btn {
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background-color: #0d7680;
+            border-color: #0d7680;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #1d7433;
+            border-color: #1d7433;
+        }
+
+        /* Form Styling */
+        .form-container {
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-control {
+            border-radius: 8px;
+        }
+
+        .form-button {
+            width: 100%;
+        }
+
+        /* Card Styling */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Table Styling */
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .table td,
+        .table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* Custom Spacing */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #343a40;
+        }
+
+        /* Navigation Links */
+        .navigation-link {
+            margin-top: 1rem;
+            text-align: right;
+        }
+
+        .navigation-link a {
+            font-weight: 600;
+            color: #6c757d;
+            text-decoration: none;
+            margin-left: 1rem;
+        }
+
+        .navigation-link a:hover {
+            color: #0056b3;
+        }
+		
+		.btn-dashboard {
+		        background-color: #4caf50; /* Green color */
+		        border-color: #4caf50;
+		        color: white;
+		        font-weight: bold;
+		        border-radius: 8px;
+		        transition: background-color 0.3s ease, transform 0.2s ease;
+		    }
+
+		    .btn-dashboard:hover {
+		        background-color: #45a049; /* Darker green for hover */
+		        border-color: #45a049;
+		        transform: scale(1.05); /* Slight zoom effect on hover */
+		    }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Project Management</h2>
+
+        <!-- Create Project Button and Filters -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="/admin/dashboard/projects/create-project" class="btn btn-primary">Create Project</a>
+            <div>
+                <button class="btn btn-info me-2" type="button" data-bs-toggle="collapse" data-bs-target="#dateRangeForm">
+                    Filter by Date Range
+                </button>
+                <a href="/admin/dashboard/projects/high-priority-tasks" class="btn btn-primary me-2">High-Priority Tasks</a>
+                <a href="/admin/dashboard/projects/ongoing-projects" class="btn btn-primary">Ongoing Projects</a>
+            </div>
+        </div>
+
+        <!-- Form to Search by Project ID -->
+        <div class="form-container mb-4">
+            <h4 class="section-title">Search by Project ID</h4>
+            <form th:action="@{/admin/dashboard/projects/byprojectId}" method="GET">
+                <div class="mb-3">
+                    <label for="projectId" class="form-label">Project ID</label>
+                    <input type="number" id="projectId" name="projectId" class="form-control" placeholder="Enter Project ID" required>
+                </div>
+                <button type="submit" class="btn btn-primary form-button">Fetch Project</button>
+            </form>
+        </div>
+
+        <!-- Date Range Filter Form -->
+        <div class="collapse" id="dateRangeForm">
+            <div class="card">
+                <div class="card-header">Filter Projects by Date Range</div>
+                <div class="card-body">
+                    <form action="projects/filter-by-date" method="GET">
+                        <div class="mb-3">
+                            <label for="startDate" class="form-label">Start Date</label>
+                            <input type="date" id="startDate" name="startDate" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="endDate" class="form-label">End Date</label>
+                            <input type="date" id="endDate" name="endDate" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-success form-button">Apply Filter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Dashboard Link -->
+		<div class="navigation-link">
+		    <a href="/admin/dashboard" class="btn btn-">Back to Dashboard</a>
+		</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

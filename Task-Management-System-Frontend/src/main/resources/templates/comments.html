@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Comments</h2>
+		
+		<div class="mb-3">
+							<a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+		</div>
+
+		<!-- Search by Comment ID Form -->
+		        <form action="/admin/dashboard/comments/searchById" method="get" class="d-flex mb-4">
+		            <input type="number" name="commentId" placeholder="Search by Comment ID" class="form-control me-2" required/>
+		            <button type="submit" class="btn btn-primary">Search by ID</button>
+		        </form>
+        
+
+        <!-- Display Message if any -->
+        <div th:if="${message}" class="alert alert-danger">
+            <p th:text="${message}"></p>
+        </div>
+
+        <!-- Comments Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Comment ID</th>
+                    <th>Comment Content</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="comment : ${comments}">
+                    <td th:text="${comment.commentId}"></td>
+                    <td th:text="${comment.text}"></td>
+                    <td>
+
+                        <!-- Edit Comment -->
+                        <a th:href="@{/admin/dashboard/comments/edit/{commentId}(commentId=${comment.commentId})}" class="btn btn-warning btn-sm">Edit</a>
+
+                        <!-- Delete Comment -->
+                        <a th:href="@{/admin/dashboard/comments/delete/{commentId}(commentId=${comment.commentId})}" class="btn btn-danger btn-sm" 
+                           onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+		
+		<a href="/admin/dashboard/comments/create" class="btn btn-success mb-4">Create New Comment</a>
+		
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

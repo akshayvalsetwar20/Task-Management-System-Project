@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            margin: 10px 0 5px;
+            display: block;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Task</h1>
+		<form th:action="@{/admin/dashboard/tasks/save-task}" th:object="${task}" method="post">
+		    <label for="taskId">Task ID</label>
+		    <input type="number" id="taskId" th:field="*{taskId}" readonly />
+
+		    <label for="taskName">Task Name</label>
+		    <input type="text" id="taskName" th:field="*{taskName}" required />
+
+		    <label for="description">Description</label>
+		    <textarea id="description" th:field="*{description}" required></textarea>
+
+		    <label for="dueDate">Due Date</label>
+		    <input type="date" id="dueDate" th:field="*{dueDate}" required />
+
+		    <label for="priority">Priority</label>
+		    <select id="priority" th:field="*{priority}" required>
+		        <option value="High">High</option>
+		        <option value="Medium">Medium</option>
+		        <option value="Low">Low</option>
+		    </select>
+
+		    <label for="status">Status</label>
+		    <select id="status" th:field="*{status}" required>
+		        <option value="Open">Open</option>
+		        <option value="In Progress">In Progress</option>
+		        <option value="Completed">Completed</option>
+		    </select>
+
+		    <label for="projectId">Project ID</label>
+		    <input type="number" id="projectId" th:field="*{projectId}" required />
+
+		    <label for="userId">User ID</label>
+		    <input type="number" id="userId" th:field="*{userId}" required />
+
+		    <button type="submit">Save Task</button>
+		</form>
+        <a href="/admin/dashboard/tasks">Back to Task List</a>
+    </div>
+</body>
+</html>
+
+

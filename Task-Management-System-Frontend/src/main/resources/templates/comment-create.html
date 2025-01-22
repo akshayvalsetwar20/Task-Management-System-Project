@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Comment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-success {
+            width: 100%;
+        }
+
+        .comment-form textarea {
+            min-height: 120px;
+        }
+
+        .d-grid {
+            margin-top: 20px;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-control:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Create a New Comment</h2>
+
+        <!-- Display Message if any -->
+        <div th:if="${message}" class="alert alert-danger">
+            <p th:text="${message}"></p>
+        </div>
+
+        <form action="/admin/dashboard/comments/save" method="post" th:object="${comment}" class="comment-form">
+            <div class="mb-3">
+                <label for="text" class="form-label">Comment Content</label>
+                <textarea class="form-control" id="text" name="text" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="taskId" class="form-label">Task ID</label>
+                <input type="number" id="taskId" name="taskId" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="userId" class="form-label">User ID</label>
+                <input type="number" id="userId" name="userId" class="form-control" required />
+            </div>
+
+            <!-- Create Date Field -->
+            <div class="mb-3">
+                <label for="createdAt" class="form-label">Create Date</label>
+                <input type="datetime-local" id="createdAt" name="createdAt" class="form-control" value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd\'T\'HH:mm')}" required />
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">Create Comment</button>
+            </div>
+        </form>
+
+        <div class="back-btn">
+            <a href="/admin/dashboard/comments/all" class="btn btn-secondary">Back to Comments List</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

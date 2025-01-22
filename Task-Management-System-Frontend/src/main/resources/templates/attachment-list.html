@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attachment List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Attachment List</h1>
+
+        <!-- Success/Error Messages -->
+        <div th:if="${message}" class="alert alert-info" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+		
+		<div class="mb-3">
+									<a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+		</div>
+
+        <!-- Add Attachment Button -->
+        <a href="/admin/dashboard/attachments/add" class="btn btn-primary mb-3">Add New Attachment</a>
+
+        <!-- Attachments Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Attachment ID</th>
+                    <th>File Name</th>
+                    <th>File Path</th>
+                    <th>Task ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="att : ${attachments}">
+                    <td th:text="${att.attachmentID}"></td>
+                    <td th:text="${att.fileName}"></td>
+                    <td th:text="${att.filePath}"></td>
+                    <td th:text="${att.taskID}"></td>
+                    <td>
+                        <a th:href="@{/admin/dashboard/attachments/edit/{attachmentId}(attachmentId=${att.attachmentID})}" class="btn btn-warning btn-sm">Edit</a>
+                        <a th:href="@{/admin/dashboard/attachments/delete/{attachmentId}(attachmentId=${att.attachmentID})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this attachment?')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

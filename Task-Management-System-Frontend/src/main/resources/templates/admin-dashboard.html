@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fa;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #343a40;
+            color: #fff;
+        }
+        .dashboard-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dashboard-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .dashboard-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+            padding: 20px;
+        }
+        .dashboard-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .dashboard-card i {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .dashboard-card a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #333;
+        }
+        .dashboard-card a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="dashboard-header">
+        <div class="logo">
+            <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" alt="Task Management System Logo">
+            <h4>Task Management System</h4>
+        </div>
+        <div class="profile">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Admin Profile">
+			<div>
+				<h5 th:text="${param.admin}">Admin Name</h5>
+				<small>Admin</small>
+			</div>
+        </div>
+    </header>
+
+    <!-- Content Section -->
+    <main class="dashboard-content">
+        <!-- User Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-users"></i>
+            <a href="/admin/dashboard/users">Users</a>
+        </div>
+        <!-- User Role Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-user-tag"></i>
+            <a href="/admin/dashboard/userrole/list">User Role</a>
+        </div>
+        <!-- User Roles Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-user-shield"></i>
+            <a href="/admin/dashboard/userroles/all">User Roles</a>
+        </div>
+        <!-- Comments Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-comments"></i>
+            <a href="/admin/dashboard/comments/all">Comments</a>
+        </div>
+        <!-- Attachments Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-paperclip"></i>
+            <a href="/admin/dashboard/attachments/all">Attachments</a>
+        </div>
+        <!-- Notifications Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-bell"></i>
+            <a href="/admin/dashboard/notifications/all">Notifications</a>
+        </div>
+        <!-- Categories Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-list"></i>
+            <a href="/admin/dashboard/category/all">Categories</a>
+        </div>
+        <!-- Task Categories Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-tasks"></i>
+            <a href="/admin/dashboard/taskcategories">Task Category</a>
+        </div>
+        <!-- Projects Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-project-diagram"></i>
+            <a href="/admin/dashboard/projects">Projects</a>
+        </div>
+        <!-- Tasks Card -->
+        <div class="dashboard-card">
+            <i class="fas fa-tasks"></i>
+            <a href="/admin/dashboard/tasks/overdue-tasks">Tasks</a>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

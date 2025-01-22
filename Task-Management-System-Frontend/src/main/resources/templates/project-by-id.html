@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Global Page Styling */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        /* Button Styling */
+        .btn {
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-warning,
+        .btn-danger,
+        .btn-primary {
+            color: #fff;
+        }
+
+        .btn-warning:hover,
+        .btn-danger:hover,
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        /* Card Styling */
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .card-body p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Alert Styling */
+        .alert {
+            border-radius: 8px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        /* Back Button Styling */
+        .back-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Project Management</h2>
+
+        <!-- Display message if no project found or project is deleted -->
+        <div th:if="${message}" class="alert alert-warning mt-3" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+
+        <!-- Display Project Details if a project is fetched -->
+        <div th:if="${project}">
+            <div class="card">
+                <div class="card-header">
+                    Project Details
+                </div>
+                <div class="card-body">
+                    <p><strong>Project ID:</strong> <span th:text="${project.projectID}"></span></p>
+                    <p><strong>Project Name:</strong> <span th:text="${project.projectName}"></span></p>
+                    <p><strong>Description:</strong> <span th:text="${project.description}"></span></p>
+                    <p><strong>Start Date:</strong> <span th:text="${project.startDate}"></span></p>
+                    <p><strong>End Date:</strong> <span th:text="${project.endDate}"></span></p>
+                    <p><strong>User ID:</strong> <span th:text="${project.userId}"></span></p>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex gap-2">
+                        <a th:href="@{/admin/dashboard/projects/update/{projectId}(projectId=${project.projectID})}" class="btn btn-warning">Edit</a>
+                        <form th:action="@{/admin/dashboard/projects/delete/{projectId}(projectId=${project.projectID})}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this project?')">Delete</button>
+                        </form>
+                    </div>
+                    <!-- Back Button -->
+                    <div class="back-btn">
+                        <a href="/admin/dashboard/projects" class="btn btn-primary mt-3">Back to Projects</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- If project is not found or deleted -->
+        <div th:if="${project == null}" class="alert alert-warning mt-4">
+            <p>Project has already been deleted or does not exist.</p>
+            <a href="/admin/dashboard/projects" class="btn btn-primary mt-2">Back to Projects</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tasks for Category</title>
+    <!-- Bootstrap CSS for better styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styling */
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+        }
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .task-list {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .task-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Tasks for Category</h1>
+
+        <!-- Form to input category ID -->
+        <div class="form-container">
+            <form th:action="@{/admin/dashboard/taskcategories/tasks}" method="get">
+                <div class="mb-3">
+                    <label for="categoryId" class="form-label">Enter Category ID:</label>
+                    <input type="number" id="categoryId" name="categoryId" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-primary">View Tasks for Category</button>
+            </form>
+        </div>
+
+        <!-- Displaying a message (if any) -->
+        <div th:if="${message != null}" class="mt-4 alert alert-info">
+            <p th:text="${message}"></p>
+        </div>
+
+        <!-- Displaying tasks for the given category -->
+        <div th:if="${taskCategories != null}" class="task-list mt-4">
+            <h2>Tasks</h2>
+            <ul class="list-unstyled">
+                <!-- Iterate through taskCategories and display task name -->
+                <li th:each="taskCategory : ${taskCategories}" class="task-item">
+                    <span th:text="${taskCategory.task.taskName}"></span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Link to go back to Dashboard -->
+        <div class="text-center mt-4">
+            <a href="/admin/dashboard/taskcategories" class="btn btn-secondary">Go to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional for using Bootstrap's interactive components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
